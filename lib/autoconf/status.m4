@@ -825,6 +825,7 @@ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
   for (key in D) D_is_set[key] = 1
   FS = ""
 }
+{ sub(/\r$/, "") }
 /^[\t ]*#[\t ]*(define|undef)[\t ]+$ac_word_re([\t (]|\$)/ {
   line = \$ 0
   split(line, arg, " ")

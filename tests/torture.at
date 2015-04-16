@@ -1401,6 +1401,31 @@ file2
 
 AT_CLEANUP
 
+## ------------------------------ ##
+## DOS line endings in config.in  ##
+## ------------------------------ ##
+
+AT_SETUP([DOS line endings in config.in])
+
+AT_DATA([configure.ac],
+[[AC_INIT
+AC_CONFIG_HEADERS(config.h:config.hin)
+AC_OUTPUT
+]])
+
+AT_CHECK_AUTOCONF
+AT_CHECK_AUTOHEADER
+
+AT_CHECK_CONFIGURE
+AT_CHECK([mv config.h config.h.original])
+
+# Convert line endings in config.hin from unix to dos style.
+AT_CHECK([sed -i -e 's/$/\r/' config.hin])
+AT_CHECK_CONFIGURE
+
+AT_CHECK([diff config.h config.h.original])
+
+AT_CLEANUP
 
 AT_BANNER([autoreconf.])
 
